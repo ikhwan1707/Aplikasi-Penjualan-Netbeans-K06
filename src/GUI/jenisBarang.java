@@ -4,18 +4,88 @@
  */
 package GUI;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import koneksi.koneksi;
+
 /**
  *
  * @author asus
  */
 public class jenisBarang extends javax.swing.JPanel {
 
+     private DefaultTableModel model;
+    
     /**
      * Creates new form dashboard
      */
     public jenisBarang() {
         initComponents();
+        loadData();
+        kosong();
+        SetEnabledFalse();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(false);
     }
+    
+    private void loadData() {
+        model = new DefaultTableModel();
+        
+        model.getDataVector().removeAllElements();
+        
+        model.fireTableDataChanged();
+        
+        tbJenis.setModel(model);
+        model.addColumn("kode");
+        model.addColumn("jenis");
+        
+        try{
+            
+            String sql = "SELECT * FROM tbljenis";
+            
+            Connection c = koneksi.getKoneksi();
+            Statement s = c.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            while(r.next()){
+                
+                model.addRow(new Object[]{
+                    r.getString(1),
+                    r.getString(2)
+                });
+            }
+            tbJenis.setModel(model);
+        }catch(SQLException e){
+            System.out.println("Terjadi Error"); 
+        }
+    }
+    
+     private void kosong(){
+        kdJenis.setText(null);
+        namaJenis.setText(null);
+    }
+     
+     public void SetEnabledFalse(){
+        kdJenis.setEnabled(false);
+        namaJenis.setEnabled(false);
+        
+    }
+     
+    public void SetEnabledTrue(){
+        kdJenis.setEnabled(true);
+        namaJenis.setEnabled(true);
+        
+    }    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,20 +98,19 @@ public class jenisBarang extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        btnAddNew = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbJenis = new javax.swing.JTable();
+        kdJenis = new javax.swing.JTextField();
+        namaJenis = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(692, 0));
         setLayout(new java.awt.BorderLayout());
@@ -49,81 +118,50 @@ public class jenisBarang extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(692, 0));
 
-        jLabel1.setText("Kode Jenis");
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Jenis Barang");
 
-        jLabel2.setText("Jenis Barang");
+        jLabel2.setText("Kode Jenis");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setText("Nama Jenis");
+
+        btnAddNew.setText("Add New");
+        btnAddNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                btnAddNewActionPerformed(evt);
             }
         });
 
-        jButton1.setText("jButton1");
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("jButton5");
-
-        jButton6.setText("jButton6");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))))
-                .addContainerGap(125, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addGap(15, 15, 15))
-        );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbJenis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -134,7 +172,12 @@ public class jenisBarang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbJenis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbJenisMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbJenis);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -144,13 +187,53 @@ public class jenisBarang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddNew)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnSave)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel))
+                    .addComponent(kdJenis, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(namaJenis))
+                .addGap(0, 99, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(kdJenis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(namaJenis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddNew)
+                    .addComponent(btnSave)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
+                    .addComponent(btnCancel))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -159,17 +242,13 @@ public class jenisBarang extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(81, 81, 81))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(64, 64, 64))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -178,37 +257,172 @@ public class jenisBarang extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+         String kode = kdJenis.getText();
+         String Jenis = namaJenis.getText();
+
+        if ("".equals(kode)|| "".equals(Jenis))
+
+        {
+            JOptionPane.showMessageDialog(this, "harap lengkap data", "error", JOptionPane.WARNING_MESSAGE);
+        }else{
+
+            try{
+                Connection c = koneksi.getKoneksi();
+                String sql = "INSERT INTO tbljenis VALUES (?,?)";
+                PreparedStatement p = c.prepareStatement(sql);
+
+                p.setString(1, kode);
+                p.setString(2, Jenis);
+
+                p.executeUpdate();
+                p.close();
+
+                JOptionPane.showMessageDialog(this, "penyimpanan Data Berhasil");
+
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }finally{
+                loadData();
+                kosong();
+            }
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void tbJenisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbJenisMouseClicked
+        // TODO add your handling code here:
+        int baris = tbJenis.getSelectedRow();
+        
+        if (baris == -1) {
+            return;
+        }
+        
+        String id = tbJenis.getValueAt(baris, 0).toString();
+        String jenis = tbJenis.getValueAt(baris, 1).toString();
+        kdJenis.setText(id);
+        namaJenis.setText(jenis);
+        
+    }//GEN-LAST:event_tbJenisMouseClicked
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        int i = tbJenis.getSelectedRow();
+        
+        if(i == -1){
+            //tidak ada baris terseleksi
+            JOptionPane.showMessageDialog(this, "harap pilih data terlebih dahulu", "error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String kode_jenis = (String) model.getValueAt(i, 0);
+        String jenis = namaJenis.getText();
+        
+        
+        try{
+            
+            Connection c = koneksi.getKoneksi();
+            
+            String sql = "UPDATE tbljenis SET  Jenis = ? WHERE KodeJenis = ?";
+            
+            PreparedStatement p = c.prepareStatement(sql);
+            
+            p.setString(1, jenis);
+            p.setString(2, kode_jenis);
+                
+            p.executeUpdate();
+            p.close();
+                
+                JOptionPane.showMessageDialog(null,
+                       "Ubah Data Berhasil");
+                
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this,
+                        e.getMessage());
+                
+            }finally{
+                loadData();
+                kosong();
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int i = tbJenis.getSelectedRow();
+        
+        if(i == -1){
+            //tidak ada baris terseleksi
+            JOptionPane.showMessageDialog(this, "harap pilih data terlebih dahulu", "error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String kode_jenis = (String) model.getValueAt(i, 0);
+        
+        try{
+            Connection c = koneksi.getKoneksi();
+            
+            String sql = "DELETE FROM tbljenis WHERE KodeJenis = ?";
+            
+            PreparedStatement p = c.prepareStatement(sql);
+            p.setString(1, kode_jenis);
+            p.executeUpdate();
+            p.close();
+            
+            JOptionPane.showMessageDialog(null,
+                       "Hapus Data Berhasil");
+                
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this,
+                        e.getMessage());
+                
+            }finally{
+            loadData();
+            kosong();
+        
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewActionPerformed
+        // TODO add your handling code here:
+        SetEnabledTrue();
+        btnSave.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnDelete.setEnabled(true);
+        btnCancel.setEnabled(true);
+        btnAddNew.setEnabled(false);
+    }//GEN-LAST:event_btnAddNewActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        kosong();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnAddNew;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField kdJenis;
+    private javax.swing.JTextField namaJenis;
+    private javax.swing.JTable tbJenis;
     // End of variables declaration//GEN-END:variables
 }
