@@ -44,10 +44,10 @@ public class petugas extends javax.swing.JPanel {
         model.fireTableDataChanged();
         
         tbpetugas.setModel(model);
-        model.addColumn("Id Petugas");
-        model.addColumn("Nama Petugas");
+        model.addColumn("ID");
+        model.addColumn("Nama");
         model.addColumn("Email");
-        model.addColumn("Telpon");
+        model.addColumn("Telepon");
         model.addColumn("Alamat");
         
         try{
@@ -136,6 +136,8 @@ public class petugas extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(692, 0));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -244,7 +246,6 @@ public class petugas extends javax.swing.JPanel {
                         .addComponent(btncancel)
                         .addGap(18, 18, 18)
                         .addComponent(btnclose))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -269,8 +270,11 @@ public class petugas extends javax.swing.JPanel {
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(txttelpon)))))
-                .addContainerGap())
+                                .addComponent(txttelpon))))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(113, 113, 113))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,40 +352,40 @@ public class petugas extends javax.swing.JPanel {
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
         // TODO add your handling code here:
-         String Idpetugas = txtid.getText();
-         String nama = txtnama.getText();
-          String email = txtemail.getText();
-           String telpon = txttelpon.getText();
-            String alamat = taalamat.getText();
-
-        if ("".equals(Idpetugas)|| "".equals(nama) || "".equals(email) || "".equals(telpon) || "".equals(alamat))
-
+        String id = txtid.getText();
+        String nama = txtnama.getText();
+        String alamat = taalamat.getText();
+        String email = txtemail.getText();
+        String telpon = txttelpon.getText();
+        
+        if ("".equals(id) || "".equals(nama) ||
+                "".equals(alamat)|| 
+                "".equals(email) || "".equals(telpon))
         {
-            JOptionPane.showMessageDialog(this, "harap lengkap data", "error", JOptionPane.WARNING_MESSAGE);
-        }else{
-
+            JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            
             try{
                 Connection c = koneksi.getKoneksi();
-                String sql = "INSERT INTO tblpetugas VALUES (?,?,?,?,?)";
+                String sql = "insert into tblpetugas value ( ?, ?, ?, ?, ?)";
                 PreparedStatement p = c.prepareStatement(sql);
-
-                p.setString(1, Idpetugas);
+                
+                p.setString(1, id);
                 p.setString(2, nama);
                 p.setString(3, email);
                 p.setString(4, telpon);
                 p.setString(5, alamat);
-
+                
                 p.executeUpdate();
                 p.close();
-
-                JOptionPane.showMessageDialog(this, "penyimpanan Data Berhasil");
-
+                
+                JOptionPane.showMessageDialog(null, "penyimpanan data berhasil");
+              
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }finally{
                 loadData();
-                kosong();
-            }
+                kosong();            }
         }
         
         SetEnabledFalse();
@@ -394,7 +398,7 @@ public class petugas extends javax.swing.JPanel {
 
     private void jScrollPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane3MouseClicked
         // TODO add your handling code here:
-         int baris = tbpetugas.getSelectedRow();
+        int baris = tbpetugas.getSelectedRow();
         
         if (baris == -1) {
             return;
@@ -420,7 +424,7 @@ public class petugas extends javax.swing.JPanel {
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
         // TODO add your handling code here:
-       int i = tbpetugas.getSelectedRow();
+         int i = tbpetugas.getSelectedRow();
         
         if(i == -1){
             //tidak ada baris tewrseleksi
@@ -428,25 +432,25 @@ public class petugas extends javax.swing.JPanel {
             return;
         }
         
-        String Idpetugas = (String) model.getValueAt(i, 0);
-         String nama = txtnama.getText();
-          String email = txtemail.getText();
-           String telpon = txttelpon.getText();
-            String alamat = taalamat.getText();
+        String id = (String) model.getValueAt(i, 0);
+        String nama = txtnama.getText();
+        String alamat = taalamat.getText();
+        String email = txtemail.getText();
+        String telpon = txttelpon.getText();
         
         try{
             
             Connection c = koneksi.getKoneksi();
 
-            String sql = "UPDATE tblpetugas SET nama = ?, email = ?, telpon = ?, alamat = ? WHERE Idpetugas = ?";
+            String sql = "UPDATE tblpetugas SET NamaPetugas = ?, Alamat = ?, Email = ?, Telpon = ? WHERE IDPetugas = ?";
             
             PreparedStatement p = c.prepareStatement(sql);
             
-                p.setString(1, Idpetugas);
-                p.setString(2, nama);
-                p.setString(3, email);
-                p.setString(4, telpon);
-                p.setString(5, alamat);
+            p.setString(1, nama);
+            p.setString(2, email);
+            p.setString(3, telpon);
+            p.setString(4, alamat);
+            p.setString(5, id);
             
             p.executeUpdate();
             p.close();

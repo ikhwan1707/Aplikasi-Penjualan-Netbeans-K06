@@ -86,7 +86,7 @@ public class jenisBarang extends javax.swing.JPanel {
         
     }    
     
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -332,6 +332,7 @@ public class jenisBarang extends javax.swing.JPanel {
         namaJenis.setText(jenis);
         
         SetEnabledTrue();
+        btnSave.setEnabled(false);
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
         btnCancel.setEnabled(true);
@@ -433,8 +434,8 @@ public class jenisBarang extends javax.swing.JPanel {
         // TODO add your handling code here:
         SetEnabledTrue();
         btnSave.setEnabled(true);
-        btnUpdate.setEnabled(true);
-        btnDelete.setEnabled(true);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
         btnCancel.setEnabled(true);
         btnAddNew.setEnabled(false);
     }//GEN-LAST:event_btnAddNewActionPerformed
@@ -442,6 +443,13 @@ public class jenisBarang extends javax.swing.JPanel {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         kosong();
+        
+        SetEnabledFalse();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(false);
+        btnAddNew.setEnabled(true);
     }//GEN-LAST:event_btnCancelActionPerformed
 
 

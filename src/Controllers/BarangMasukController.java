@@ -1,0 +1,183 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Controllers;
+
+/**
+ *
+ * @author iLumniX
+ */
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+
+import java.text.SimpleDateFormat;
+import java.lang.StringBuilder;
+
+import koneksi.koneksi;
+
+public class BarangMasukController {
+
+    private final Connection cn = koneksi.getKoneksi();
+
+    public String Tanggal() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date tanggalSekarang = new Date();
+        String tanggalMasuk = dateFormat.format(tanggalSekarang);
+        return tanggalMasuk;
+    }
+
+    public List<String[]> mencariNoNota(String NoNota) {
+        List<String[]> data = new ArrayList<>();
+        try {
+            String query = "SELECT a.NoNota, a.TglMasuk, a.IDPetugas, b.NamaPetugas, a.IDDistributor, c.NamaDistributor, a.Total "
+                    + "FROM tblbrgmasuk AS a "
+                    + "JOIN tblpetugas AS b ON b.IDPetugas = a.IDPetugas "
+                    + "JOIN tbldistributor AS c ON c.IDDistributor = a.IDDistributor "
+                    + "WHERE a.NoNota = ?";
+            
+            try (PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setString(1, NoNota);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        String noNota = rs.getString("NoNota");
+                        String tanggal = rs.getString("TglMasuk");
+                        String idPetugas = rs.getString("IDPetugas");
+                        String namaPetugas = rs.getString("NamaPetugas");
+                        String idDistributor = rs.getString("IDDistributor");
+                        String namaDistributor = rs.getString("NamaDistributor");
+                        String total = rs.getString("Total");
+                        String[] dataMasuk = {
+                            noNota,
+                            tanggal,
+                            idPetugas,
+                            namaPetugas,
+                            idDistributor,
+                            namaDistributor,
+                            total
+                        };
+                        data.add(dataMasuk);
+                    }
+                    rs.close();
+                }
+                ps.close();
+            }
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+        return data;
+    }
+
+    public List<String[]> IndexDataBarangMasuk() {
+        List<String[]> dataBrgMasuk = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        try {
+            List<String> detail = new ArrayList<>();
+            
+            String query = "SELECT a.NoNota, a.TglMasuk, b.NamaPetugas, c.NamaDistributor, a.Total "+
+                           "FROM tblbrgmasuk AS a "+
+                           "JOIN tblpetugas AS b ON b.IDPetugas = a.IDPetugas "+
+                           "JOIN tbldistributor AS c ON c.IDDistributor = a.IDDistributor";
+            
+            String queryHistory = "SELECT b.NamaBarang FROM tbldetailbrgmasuk AS a "+
+                                  "JOIN tblbarang AS b ON b.KodeBarang = a.KodeBarang "+
+                                  "WHERE a.NoNota = ?";
+            
+            try (PreparedStatement ps = cn.prepareStatement(query)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        String noNota = rs.getString("NoNota");
+                        
+                        try (PreparedStatement psb = cn.prepareStatement(queryHistory)) {
+                            try (ResultSet rsb = psb.executeQuery()) {
+                                if (rs.next()) {
+                                    String namaBarang = rsb.getString("NamaBarang");
+                                    detail.add(namaBarang);
+                                }
+                            }
+                        }
+                        
+//                      Mengubah array menjadi String gabungan
+                        for (String dataNamaBarang : detail) {
+                            sb.append(dataNamaBarang).append(", ");
+                        }
+                        
+//                      Menghapus extra nya
+                        if (sb.length() > 0) {
+                            sb.setLength(sb.length() - 2);
+                        }
+                        
+                        String namaBarang = sb.toString();
+                        String tglMasuk = rs.getString("TglMasuk");
+                        String namaDistributor = rs.getString("NamaDistributor");
+                        String namaPetugas = rs.getString("NamaPetugas");
+                        String Total = rs.getString("Total");
+                        String[] data = {noNota, namaBarang, tglMasuk, namaDistributor, namaPetugas, Total};
+                        dataBrgMasuk.add(data);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+        return dataBrgMasuk;
+    }
+    
+    public void Store(List<String[]> data, String NoNota, String tglMasuk, String idPetugas, String idDistributor, String Total) {
+        try {
+            String queryBrgMasuk = "INSERT INTO tblbrgmasuk(NoNota, TglMasuk, IDPetugas, IDDistributor, Total) "+
+                                   "VALEUS (?, ?, ?, ?, ?)";
+            
+            try (PreparedStatement ps = cn.prepareStatement(queryBrgMasuk)) {
+                ps.setString(1, NoNota);
+                ps.setString(2, tglMasuk);
+                ps.setString(3, idPetugas);
+                ps.setString(4, idDistributor);
+                ps.setString(5, Total);
+                ps.executeUpdate();
+                ps.close();
+            }
+            
+            String queryHistory = "INSERT INTO tbldetailbrgmasuk(NoNota, KodeBarang, Jumlah, Subtotal) "+
+                                  "VALUES (?, ?, ?, ?)";
+            for (String[] v : data) {
+                try (PreparedStatement ps = cn.prepareStatement(queryHistory)) {
+                    ps.setString(1, NoNota);
+                    ps.setString(2, v[0]);
+                    ps.setString(3, v[2]);
+                    ps.setString(4, v[3]);
+                    ps.executeQuery();
+                    ps.close();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+    
+    public void Delete(String noNota) {
+        try {
+            String query = "DELETE FROM tblbrgmasuk WHERE NoNota = ?";
+            String query2 = "DELETE FROM tbldetailbrgmasuk WHERE NoNota = ?";
+            try (PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setString(1, noNota);
+                ps.executeUpdate();
+                ps.close();
+            }
+            
+            try (PreparedStatement ps2 = cn.prepareStatement(query2)) {
+                ps2.setString(1, noNota);
+                ps2.executeUpdate();
+                ps2.close();
+            }
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+}

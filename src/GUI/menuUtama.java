@@ -82,6 +82,7 @@ public class menuUtama extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
@@ -121,7 +122,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/dashboard16.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel2.setText("Dashboard");
@@ -165,7 +166,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/penjualan.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel4.setText("Penjualan");
@@ -208,7 +209,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/brgmasuk.png"))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel7.setText("Barang Masuk");
@@ -248,7 +249,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\distributor.png")); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel10.setText("Distribution");
@@ -288,7 +289,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/jnsbrg.png"))); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel12.setText("Jenis Barang");
@@ -328,7 +329,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/brg.png"))); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel14.setText("Barang");
@@ -368,7 +369,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/petugas.png"))); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel16.setText("Petugas");
@@ -408,7 +409,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/detail.png"))); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel18.setText("Detail");
@@ -439,22 +440,31 @@ public class menuUtama extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         jLabel19.setText("Report");
 
-        jButton1.setText("X");
+        jButton1.setBackground(new java.awt.Color(245, 245, 245));
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\close.png")); // NOI18N
+        jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("adminjaya");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -479,9 +489,9 @@ public class menuUtama extends javax.swing.JFrame {
                             .addComponent(jLabel19))
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -784,6 +794,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
