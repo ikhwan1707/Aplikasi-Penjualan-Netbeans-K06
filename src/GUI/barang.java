@@ -27,6 +27,11 @@ public class barang extends javax.swing.JPanel {
         initComponents();
         loadData(b.Index());
         loadDataCombo();
+        kosong();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(false);
     }
     
      private void loadData(List<String[]> dataJenis) {
@@ -60,6 +65,35 @@ public class barang extends javax.swing.JPanel {
             comboKdJenis.addItem(item[0]);
         }
     }
+        private void kosong (){
+        kdBarang.setText(null);
+        namaBarang.setText(null);
+        comboKdJenis.setSelectedItem(null);
+        jenisBarang.setText(null);
+        hargaNet.setText(null);
+        hargaJual.setText(null);
+        stok.setText(null);
+    }
+     
+     public void SetEnabledFalse(){
+        kdBarang.setEnabled(false);
+        namaBarang.setEnabled(false);
+        comboKdJenis.setEnabled(false);
+        jenisBarang.setEnabled(false);
+        hargaNet.setEnabled(false);
+        hargaJual.setEnabled(false);
+        stok.setEnabled(false);
+    }
+     
+    public void SetEnabledTrue(){
+        kdBarang.setEnabled(true);
+        namaBarang.setEnabled(true);
+        comboKdJenis.setEnabled(true);
+        jenisBarang.setEnabled(true);
+        hargaNet.setEnabled(true);
+        hargaJual.setEnabled(true);
+        stok.setEnabled(true);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,12 +121,12 @@ public class barang extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         stok = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        btnAddNew = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        tbData = new javax.swing.JScrollPane();
         tbBarang = new javax.swing.JTable();
         hargaJual = new javax.swing.JTextField();
 
@@ -116,6 +150,8 @@ public class barang extends javax.swing.JPanel {
 
         jLabel5.setText("Jenis Barang");
 
+        jenisBarang.setEnabled(false);
+
         comboKdJenis.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kode Jenis" }));
 
         jLabel6.setText("Harga Net");
@@ -124,34 +160,44 @@ public class barang extends javax.swing.JPanel {
 
         jLabel8.setText("Stok");
 
-        jButton1.setText("Add New");
-
-        jButton2.setText("Save");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAddNew.setText("Add New");
+        btnAddNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAddNewActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Update");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Delete");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Cancel");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        tbData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jScrollPane1MouseClicked(evt);
+                tbDataMouseClicked(evt);
             }
         });
 
@@ -171,7 +217,7 @@ public class barang extends javax.swing.JPanel {
                 tbBarangMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbBarang);
+        tbData.setViewportView(tbBarang);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -215,17 +261,17 @@ public class barang extends javax.swing.JPanel {
                                                 .addComponent(hargaJual, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addGap(58, 58, 58)
-                                        .addComponent(jButton1)
+                                        .addComponent(btnAddNew)
                                         .addGap(12, 12, 12)
-                                        .addComponent(jButton2)
+                                        .addComponent(btnSave)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton3)
+                                        .addComponent(btnUpdate)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton4)
+                                        .addComponent(btnDelete)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton5)))))
+                                        .addComponent(btnCancel)))))
                         .addGap(0, 196, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(tbData, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -257,13 +303,13 @@ public class barang extends javax.swing.JPanel {
                     .addComponent(jenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnAddNew)
+                    .addComponent(btnSave)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
+                    .addComponent(btnCancel))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addComponent(tbData, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -298,13 +344,20 @@ public class barang extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         b.Store(namaBarang.getText(), comboKdJenis.getSelectedItem().toString(), hargaNet.getText(), hargaJual.getText(), stok.getText());
         loadData(b.Index());
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        SetEnabledFalse();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(false);
+        btnAddNew.setEnabled(true);
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         if ("".equals(kdBarang.getText()) || "".equals(namaBarang.getText()) || "".equals(comboKdJenis.getSelectedItem().toString()) || "".equals(hargaNet.getText()) || "".equals(hargaJual.getText()) || "".equals(stok.getText()) ) {
 
@@ -320,11 +373,18 @@ public class barang extends javax.swing.JPanel {
         stok.setText("");
         
         loadData(b.Index());
-    }//GEN-LAST:event_jButton3ActionPerformed
+        
+        SetEnabledFalse();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(false);
+        btnAddNew.setEnabled(true);
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+    private void tbDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDataMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jScrollPane1MouseClicked
+    }//GEN-LAST:event_tbDataMouseClicked
 
     private void tbBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBarangMouseClicked
         // TODO add your handling code here:
@@ -346,24 +406,59 @@ public class barang extends javax.swing.JPanel {
         hargaNet.setText(hn);
         hargaJual.setText(hj);
         stok.setText(s);
+        
+        SetEnabledTrue();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        btnDelete.setEnabled(true);
+        btnCancel.setEnabled(true);
+        btnAddNew.setEnabled(false);
     }//GEN-LAST:event_tbBarangMouseClicked
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         b.Delete(kdBarang.getText());
         loadData(b.Index());
-    }//GEN-LAST:event_jButton4ActionPerformed
+        
+        SetEnabledFalse();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(false);
+        btnAddNew.setEnabled(true);
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewActionPerformed
+        // TODO add your handling code here:
+        SetEnabledTrue();
+        btnSave.setEnabled(true);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(true);
+        btnAddNew.setEnabled(false);
+    }//GEN-LAST:event_btnAddNewActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        kosong();
+        SetEnabledFalse();
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnCancel.setEnabled(false);
+        btnAddNew.setEnabled(true);
+    }//GEN-LAST:event_btnCancelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddNew;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboKdJenis;
     private javax.swing.JTextField hargaJual;
     private javax.swing.JTextField hargaNet;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -375,11 +470,11 @@ public class barang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jenisBarang;
     private javax.swing.JTextField kdBarang;
     private javax.swing.JTextField namaBarang;
     private javax.swing.JTextField stok;
     private javax.swing.JTable tbBarang;
+    private javax.swing.JScrollPane tbData;
     // End of variables declaration//GEN-END:variables
 }
