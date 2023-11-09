@@ -30,6 +30,7 @@ public class dashboard extends javax.swing.JPanel {
         initComponents();
         jmlhjnsbrg();
         jmlhdistributor();
+        jlmhbrg();
         Timer timer = new Timer(1, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,6 +85,24 @@ public class dashboard extends javax.swing.JPanel {
             System.out.println("Terjadi Error"); 
         }
     }
+    
+    private void jlmhbrg() {
+        try{
+            
+            String sql = "SELECT COUNT(*) FROM tblbarang";
+            
+            Connection c = koneksi.getKoneksi();
+            Statement s = c.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            if(r.next()){
+                String count =r.getString(1);
+                jmlhbrg.setText(count);
+            }
+        }catch(SQLException e){
+            System.out.println("Terjadi Error"); 
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,8 +120,10 @@ public class dashboard extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jmlhpenjualan = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jmlhbrgmsk = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jmlhdistributor = new javax.swing.JLabel();
@@ -111,6 +132,7 @@ public class dashboard extends javax.swing.JPanel {
         jmlhjnsbrg = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jmlhbrg = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -136,13 +158,19 @@ public class dashboard extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Penjualan");
 
+        jmlhpenjualan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jmlhpenjualan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jmlhpenjualan.setText("jLabel8");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(jmlhpenjualan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -150,7 +178,9 @@ public class dashboard extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jmlhpenjualan, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel10.setBackground(new java.awt.Color(245, 245, 245));
@@ -160,13 +190,19 @@ public class dashboard extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Barang Masuk");
 
+        jmlhbrgmsk.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jmlhbrgmsk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jmlhbrgmsk.setText("jLabel8");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(jmlhbrgmsk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -174,7 +210,9 @@ public class dashboard extends javax.swing.JPanel {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jmlhbrgmsk, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel11.setBackground(new java.awt.Color(245, 245, 245));
@@ -248,13 +286,19 @@ public class dashboard extends javax.swing.JPanel {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Barang");
 
+        jmlhbrg.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jmlhbrg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jmlhbrg.setText("jLabel8");
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(jmlhbrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -262,7 +306,9 @@ public class dashboard extends javax.swing.JPanel {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jmlhbrg, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 10)); // NOI18N
@@ -415,8 +461,11 @@ public class dashboard extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jmlhbrg;
+    private javax.swing.JLabel jmlhbrgmsk;
     private javax.swing.JLabel jmlhdistributor;
     private javax.swing.JLabel jmlhjnsbrg;
+    private javax.swing.JLabel jmlhpenjualan;
     private javax.swing.JLabel showdays;
     // End of variables declaration//GEN-END:variables
 }
