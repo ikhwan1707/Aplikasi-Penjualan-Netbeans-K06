@@ -122,7 +122,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/dashboard16.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\dashboard16.png")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel2.setText("Dashboard");
@@ -166,7 +166,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/penjualan.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\penjualan.png")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel4.setText("Penjualan");
@@ -209,7 +209,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/brgmasuk.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\brgmasuk.png")); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel7.setText("Barang Masuk");
@@ -249,7 +249,6 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\distributor.png")); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel10.setText("Distribution");
@@ -289,7 +288,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/jnsbrg.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\jnsbrg.png")); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel12.setText("Jenis Barang");
@@ -329,7 +328,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/brg.png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\brg.png")); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel14.setText("Barang");
@@ -369,7 +368,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/petugas.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\petugas.png")); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel16.setText("Petugas");
@@ -409,7 +408,7 @@ public class menuUtama extends javax.swing.JFrame {
         iconDashboard7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/img/detail.png"))); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\LENOVO\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\detail.png")); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
         jLabel18.setText("Detail");
@@ -441,7 +440,6 @@ public class menuUtama extends javax.swing.JFrame {
         jLabel19.setText("Report");
 
         jButton1.setBackground(new java.awt.Color(245, 245, 245));
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\asus\\Documents\\NetBeansProjects\\Aplikasi-Penjualan-Netbeans-K06\\src\\GUI\\img\\close.png")); // NOI18N
         jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
