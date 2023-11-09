@@ -4,19 +4,105 @@
  */
 package GUI;
 
+//import java.lang.System.Logger;
+//import java.lang.System.Logger.Level;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import koneksi.koneksi;
+
 /**
  *
  * @author asus
  */
 public class distribution extends javax.swing.JPanel {
-
+    
+    private DefaultTableModel model;
+    
     /**
      * Creates new form dashboard
      */
     public distribution() {
         initComponents();
+        loadData();
+        kosong();
+        setEnabledFalse();
+        btnsave.setEnabled(false);
+        btnupdate.setEnabled(false);
+        btndelete.setEnabled(false);
+        btncancel.setEnabled(false);
     }
 
+    public void loadData(){
+        model = new DefaultTableModel();
+               
+        model.getDataVector().removeAllElements();
+        
+        model.fireTableDataChanged();
+        
+        tabeldistributor.setModel(model);
+        model.addColumn("IDDistributor");
+        model.addColumn("NamaDistributor");
+        model.addColumn("Alamat");
+        model.addColumn("KotaAsal");
+        model.addColumn("Email");
+        model.addColumn("Telepon");
+        
+        try{
+            
+            String sql = "SELECT * FROM tbldistributor";
+            
+            Connection c = koneksi.getKoneksi();
+            Statement s = c.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            while(r.next()){
+                
+                model.addRow(new Object[]{
+                    r.getString(1),
+                    r.getString(2),
+                    r.getString(3),
+                    r.getString(4),
+                    r.getString(5),
+                    r.getString(6)
+                });
+            }
+            tabeldistributor.setModel(model);
+        }catch(SQLException e){
+            System.out.println("Terjadi Error"); 
+        }
+    }
+    
+    public void kosong(){
+        txtid.setText(null);
+        txtnama.setText(null);
+        txtalamat.setText(null);
+        txtkota.setText(null);
+        txtemail.setText(null);
+        txttelepon.setText(null);
+    }
+    
+    public void setEnabledFalse(){
+        txtid.setEnabled(false);
+        txtnama.setEnabled(false);
+        txtalamat.setEnabled(false);
+        txtkota.setEnabled(false);
+        txtemail.setEnabled(false);
+        txttelepon.setEnabled(false);
+    }
+    
+    public void setEnabledTrue(){
+        txtid.setEnabled(true);
+        txtnama.setEnabled(true);
+        txtalamat.setEnabled(true);
+        txtkota.setEnabled(true);
+        txtemail.setEnabled(true);
+        txttelepon.setEnabled(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,19 +118,18 @@ public class distribution extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtid = new javax.swing.JTextField();
+        txtnama = new javax.swing.JTextField();
+        txtkota = new javax.swing.JTextField();
+        txtemail = new javax.swing.JTextField();
+        txttelepon = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        txtalamat = new javax.swing.JTextArea();
+        btnadd = new javax.swing.JButton();
+        btnsave = new javax.swing.JButton();
+        btnupdate = new javax.swing.JButton();
+        btndelete = new javax.swing.JButton();
+        btncancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -52,7 +137,7 @@ public class distribution extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tabeldistributor = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,45 +162,64 @@ public class distribution extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Distributor");
 
-        jTextField1.setText("jTextField1");
+        txtkota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtkotaActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("jTextField2");
+        txtalamat.setColumns(20);
+        txtalamat.setRows(5);
+        jScrollPane1.setViewportView(txtalamat);
 
-        jTextField3.setText("jTextField3");
+        btnadd.setText("ADD New");
+        btnadd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnaddActionPerformed(evt);
+            }
+        });
 
-        jTextField4.setText("jTextField4");
+        btnsave.setText("Save");
+        btnsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsaveActionPerformed(evt);
+            }
+        });
 
-        jTextField5.setText("jTextField5");
+        btnupdate.setText("Update");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnupdateActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        btndelete.setText("Delete");
+        btndelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeleteActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("jButton1");
+        btncancel.setText("Cancel");
+        btncancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jLabel2.setText("Id Distributor");
 
-        jButton3.setText("jButton3");
+        jLabel3.setText("Nama Distributor");
 
-        jButton4.setText("jButton4");
+        jLabel4.setText("Kota Asal");
 
-        jButton5.setText("jButton5");
+        jLabel5.setText("Email");
 
-        jButton6.setText("jButton6");
+        jLabel6.setText("Telepon");
 
-        jLabel2.setText("jLabel2");
+        jLabel7.setText("Alamat");
 
-        jLabel3.setText("jLabel3");
-
-        jLabel4.setText("jLabel4");
-
-        jLabel5.setText("jLabel5");
-
-        jLabel6.setText("jLabel6");
-
-        jLabel7.setText("jLabel7");
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tabeldistributor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -126,7 +230,12 @@ public class distribution extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable3);
+        tabeldistributor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabeldistributorMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tabeldistributor);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -141,17 +250,15 @@ public class distribution extends javax.swing.JPanel {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(95, 95, 95)
-                                .addComponent(jButton1)
+                                .addComponent(btnadd)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)
+                                .addComponent(btnsave)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)
+                                .addComponent(btnupdate)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4)
+                                .addComponent(btndelete)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton6))
+                                .addComponent(btncancel))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -159,28 +266,21 @@ public class distribution extends javax.swing.JPanel {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
-                                .addGap(66, 66, 66)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(159, 159, 159))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel7))
-                                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel6)))
-                                        .addGap(18, 18, 18)))
+                                .addGap(49, 49, 49)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtkota, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                    .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtid, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtemail))
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 94, Short.MAX_VALUE))
+                                    .addComponent(txttelepon, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 60, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -191,34 +291,33 @@ public class distribution extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtkota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(btnadd)
+                    .addComponent(btnsave)
+                    .addComponent(btnupdate)
+                    .addComponent(btndelete)
+                    .addComponent(btncancel))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                 .addContainerGap())
@@ -255,14 +354,206 @@ public class distribution extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtkotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtkotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtkotaActionPerformed
+
+    private void tabeldistributorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabeldistributorMouseClicked
+        // TODO add your handling code here:
+        int baris = tabeldistributor.getSelectedRow();
+        
+        if (baris == -1) {
+            return;
+        }
+        
+        String IDDistributor = tabeldistributor.getValueAt(baris, 0).toString();
+        String NamaDistributor = tabeldistributor.getValueAt(baris, 1).toString();
+        String Alamat = tabeldistributor.getValueAt(baris, 2).toString();
+        String KotaAsal = tabeldistributor.getValueAt(baris, 3).toString();
+        String Email = tabeldistributor.getValueAt(baris, 4).toString();
+        String Telepon = tabeldistributor.getValueAt(baris, 5).toString();
+        txtid.setText(IDDistributor);
+        txtnama.setText(NamaDistributor);
+        txtalamat.setText(Alamat);
+        txtkota.setText(KotaAsal);
+        txtemail.setText(Email);
+        txttelepon.setText(Telepon);
+        
+        setEnabledTrue();
+        btnupdate.setEnabled(true);
+        btndelete.setEnabled(true);
+        btncancel.setEnabled(true);
+        btnadd.setEnabled(false);
+    }//GEN-LAST:event_tabeldistributorMouseClicked
+
+    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+        // TODO add your handling code here:
+        String id = txtid.getText();
+        String nama = txtnama.getText();
+        String alamat = txtalamat.getText();
+        String kota = txtkota.getText();
+        String email = txtemail.getText();
+        String telpon = txttelepon.getText();
+        
+        if ("".equals(id) || "".equals(nama) ||
+                "".equals(alamat)||"".equals(kota) || 
+                "".equals(email) || "".equals(telpon))
+        {
+            JOptionPane.showMessageDialog(this, "Harap Lengkapi Data", "error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            
+            try{
+                Connection c = koneksi.getKoneksi();
+                String sql = "insert into tbldistributor value (?, ?, ?, ?, ?, ?)";
+                PreparedStatement p = c.prepareStatement(sql);
+                
+                p.setString(1, id);
+                p.setString(2, nama);
+                p.setString(3, alamat);
+                p.setString(4, kota);
+                p.setString(5, email);
+                p.setString(6, telpon);
+                
+                p.executeUpdate();
+                p.close();
+                
+                JOptionPane.showMessageDialog(null, "penyimpanan data berhasil");
+              
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }finally{
+                loadData();
+                kosong();
+                setEnabledTrue();
+               btnadd.setEnabled(true);
+            }
+        }
+        
+        setEnabledFalse();
+        btnsave.setEnabled(false);
+        btnupdate.setEnabled(false);
+        btndelete.setEnabled(false);
+        btncancel.setEnabled(false);
+        btnadd.setEnabled(true);
+    }//GEN-LAST:event_btnsaveActionPerformed
+
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
+        // TODO add your handling code here:
+        int i = tabeldistributor.getSelectedRow();
+        
+        if(i == -1){
+            //tidak ada baris tewrseleksi
+            JOptionPane.showMessageDialog(this, "harap pilih data terlebih dahulu", "error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String id = (String) model.getValueAt(i, 0);
+        String nama = txtnama.getText();
+        String alamat = txtalamat.getText();
+        String kota = txtkota.getText();
+        String email = txtemail.getText();
+        String telpon = txttelepon.getText();
+        
+        try{
+            
+            Connection c = koneksi.getKoneksi();
+
+            String sql = "UPDATE tbldistributor SET NamaDistributor = ?, Alamat = ?, KotaAsal = ?, Email = ?, Telpon = ? WHERE IDDistributor = ?";
+            
+            PreparedStatement p = c.prepareStatement(sql);
+            
+            p.setString(1, nama);
+            p.setString(2, alamat);
+            p.setString(3, kota);
+            p.setString(4, email);
+            p.setString(5, telpon);
+            p.setString(6, id);
+            
+            p.executeUpdate();
+            p.close();
+            
+            JOptionPane.showMessageDialog(null,"Ubah Data Berhasil");
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"Terjadi ERROR" + e.getMessage());
+        }finally{
+            loadData();
+            kosong();
+        }
+        
+        setEnabledFalse();
+        btnsave.setEnabled(false);
+        btnupdate.setEnabled(false);
+        btndelete.setEnabled(false);
+        btncancel.setEnabled(false);
+        btnadd.setEnabled(true);
+    }//GEN-LAST:event_btnupdateActionPerformed
+
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+        // TODO add your handling code here:
+        int i = tabeldistributor.getSelectedRow();
+        
+        if(i == -1){
+            //tidak ada baris tewrseleksi
+            JOptionPane.showMessageDialog(this, "Harap Pilih Data Terlebih Dahulu", "ERROR", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String id = (String) model.getValueAt(i, 0);
+        
+        try{
+            Connection c = koneksi.getKoneksi();
+            
+            String sql = "DELETE FROM tbldistributor WHERE IDDistributor = ?";
+            
+            PreparedStatement p = c.prepareStatement(sql);
+            p.setString(1, id);
+            p.executeUpdate();
+            p.close();
+            
+            JOptionPane.showMessageDialog(null, "Hapus Data Berhasil");
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Terjadi ERROR");
+        }finally {
+            loadData();
+            kosong();
+        }
+        
+        setEnabledFalse();
+        btnsave.setEnabled(false);
+        btnupdate.setEnabled(false);
+        btndelete.setEnabled(false);
+        btncancel.setEnabled(false);
+        btnadd.setEnabled(true);
+    }//GEN-LAST:event_btndeleteActionPerformed
+
+    private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
+        // TODO add your handling code here:
+        setEnabledTrue();
+        btnsave.setEnabled(true);
+        btnupdate.setEnabled(true);
+        btndelete.setEnabled(true);
+        btncancel.setEnabled(true);
+        btnadd.setEnabled(false);
+    }//GEN-LAST:event_btnaddActionPerformed
+
+    private void btncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelActionPerformed
+        // TODO add your handling code here:
+        kosong();
+        setEnabledFalse();
+        btnsave.setEnabled(false);
+        btnupdate.setEnabled(false);
+        btndelete.setEnabled(false);
+        btncancel.setEnabled(false);
+        btnadd.setEnabled(true);
+    }//GEN-LAST:event_btncancelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnadd;
+    private javax.swing.JButton btncancel;
+    private javax.swing.JButton btndelete;
+    private javax.swing.JButton btnsave;
+    private javax.swing.JButton btnupdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -277,12 +568,12 @@ public class distribution extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tabeldistributor;
+    private javax.swing.JTextArea txtalamat;
+    private javax.swing.JTextField txtemail;
+    private javax.swing.JTextField txtid;
+    private javax.swing.JTextField txtkota;
+    private javax.swing.JTextField txtnama;
+    private javax.swing.JTextField txttelepon;
     // End of variables declaration//GEN-END:variables
 }
