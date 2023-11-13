@@ -49,17 +49,18 @@ public class BarangController {
         List<String[]> dataBarang = new ArrayList<>();
 
         try {
-            String query = "SELECT KodeBarang, NamaBarang, HargaNet, HargaJual, Stok, tbljenis.Jenis AS Jenis FROM tblbarang JOIN tbljenis ON tblbarang.KodeJenis = tbljenis.KodeJenis";
+            String query = "SELECT KodeBarang, NamaBarang, HargaNet, HargaJual, Stok, tbljenis.Jenis, tbljenis.KodeJenis FROM tblbarang JOIN tbljenis ON tblbarang.KodeJenis = tbljenis.KodeJenis";
             try (PreparedStatement ps = cn.prepareStatement(query)) {
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         String kodeBarang = rs.getString("KodeBarang");
                         String namaBarang = rs.getString("NamaBarang");
                         String hargaNet = rs.getString("HargaNet");
+                        String kodeJenis = rs.getString("KodeJenis");
                         String hargaJual = rs.getString("HargaJual");
                         String stok = rs.getString("Stok");
                         String jenis = rs.getString("Jenis");
-                        String[] data = {kodeBarang, namaBarang, jenis, hargaNet, hargaJual, stok};
+                        String[] data = {kodeBarang, namaBarang, kodeJenis, jenis, hargaNet, hargaJual, stok};
                         dataBarang.add(data);
                     }
 

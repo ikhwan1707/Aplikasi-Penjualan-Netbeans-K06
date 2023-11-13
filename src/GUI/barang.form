@@ -102,10 +102,10 @@
                                                   </Group>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="comboKdJenis" pref="218" max="32767" attributes="0"/>
-                                                      <Component id="namaBarang" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="namaBarang" alignment="0" pref="218" max="32767" attributes="0"/>
                                                       <Component id="kdBarang" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="jenisBarang" max="32767" attributes="0"/>
+                                                      <Component id="comboKdJenis" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -141,7 +141,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="196" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="191" max="32767" attributes="0"/>
                               </Group>
                               <Component id="tbData" alignment="1" max="32767" attributes="0"/>
                           </Group>
@@ -171,9 +171,9 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboKdJenis" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="stok" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboKdJenis" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -226,25 +226,14 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Jenis Barang"/>
+                    <Property name="text" type="java.lang.String" value="Nama Jenis Barang"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jenisBarang">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="comboKdJenis">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="Pilih Kode Jenis"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
@@ -325,6 +314,21 @@
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JTextField" name="hargaJual">
+                </Component>
+                <Component class="javax.swing.JComboBox" name="comboKdJenis">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="1">
+                        <StringItem index="0" value="Pilih Kode Jenis"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboKdJenisActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

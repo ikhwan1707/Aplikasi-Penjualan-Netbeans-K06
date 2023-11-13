@@ -197,9 +197,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\LENOVO\Documents\NetBeansProjects\Aplikasi-Penjualan-Netbeans-K06\Aplikasi-Penjualan-Netbeans-K06\src\GUI\img\dashboard16.png"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
@@ -277,9 +274,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\LENOVO\Documents\NetBeansProjects\Aplikasi-Penjualan-Netbeans-K06\Aplikasi-Penjualan-Netbeans-K06\src\GUI\img\penjualan.png"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
@@ -355,9 +349,6 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\LENOVO\Documents\NetBeansProjects\Aplikasi-Penjualan-Netbeans-K06\Aplikasi-Penjualan-Netbeans-K06\src\GUI\img\brgmasuk.png"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -495,9 +486,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\LENOVO\Documents\NetBeansProjects\Aplikasi-Penjualan-Netbeans-K06\Aplikasi-Penjualan-Netbeans-K06\src\GUI\img\jnsbrg.png"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
@@ -565,9 +553,6 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\LENOVO\Documents\NetBeansProjects\Aplikasi-Penjualan-Netbeans-K06\Aplikasi-Penjualan-Netbeans-K06\src\GUI\img\brg.png"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -637,9 +622,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\LENOVO\Documents\NetBeansProjects\Aplikasi-Penjualan-Netbeans-K06\Aplikasi-Penjualan-Netbeans-K06\src\GUI\img\petugas.png"/>
-                    </Property>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
@@ -707,9 +689,6 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="0"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\LENOVO\Documents\NetBeansProjects\Aplikasi-Penjualan-Netbeans-K06\Aplikasi-Penjualan-Netbeans-K06\src\GUI\img\detail.png"/>
                     </Property>
                   </Properties>
                 </Component>

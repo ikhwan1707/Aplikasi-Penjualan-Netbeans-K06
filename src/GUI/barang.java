@@ -28,6 +28,7 @@ public class barang extends javax.swing.JPanel {
         loadData(b.Index());
         loadDataCombo();
         kosong();
+        SetEnabledFalse();
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
@@ -42,6 +43,7 @@ public class barang extends javax.swing.JPanel {
             tbBarang.setModel(view);
             view.addColumn("Kode Barang");
             view.addColumn("Nama Barang");
+            view.addColumn("Kode Jenis");
             view.addColumn("Nama Jenis");
             view.addColumn("Harga Net");
             view.addColumn("Harga Jual");
@@ -55,7 +57,8 @@ public class barang extends javax.swing.JPanel {
                 item[2],
                 item[3],
                 item[4],
-                item[5]
+                item[5],
+                item[6]
             });
         }
     }
@@ -68,7 +71,6 @@ public class barang extends javax.swing.JPanel {
         private void kosong (){
         kdBarang.setText(null);
         namaBarang.setText(null);
-        comboKdJenis.setSelectedItem(null);
         jenisBarang.setText(null);
         hargaNet.setText(null);
         hargaJual.setText(null);
@@ -115,7 +117,6 @@ public class barang extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jenisBarang = new javax.swing.JTextField();
-        comboKdJenis = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         hargaNet = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -129,6 +130,7 @@ public class barang extends javax.swing.JPanel {
         tbData = new javax.swing.JScrollPane();
         tbBarang = new javax.swing.JTable();
         hargaJual = new javax.swing.JTextField();
+        comboKdJenis = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(692, 0));
         setLayout(new java.awt.BorderLayout());
@@ -148,11 +150,10 @@ public class barang extends javax.swing.JPanel {
 
         jLabel4.setText("Kode Jenis Barang");
 
-        jLabel5.setText("Jenis Barang");
+        jLabel5.setText("Nama Jenis Barang");
 
+        jenisBarang.setEditable(false);
         jenisBarang.setEnabled(false);
-
-        comboKdJenis.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kode Jenis" }));
 
         jLabel6.setText("Harga Net");
 
@@ -219,6 +220,13 @@ public class barang extends javax.swing.JPanel {
         });
         tbData.setViewportView(tbBarang);
 
+        comboKdJenis.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kode Jenis" }));
+        comboKdJenis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboKdJenisActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -241,10 +249,10 @@ public class barang extends javax.swing.JPanel {
                                             .addComponent(jLabel5))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(comboKdJenis, 0, 218, Short.MAX_VALUE)
-                                            .addComponent(namaBarang)
+                                            .addComponent(namaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                                             .addComponent(kdBarang)
-                                            .addComponent(jenisBarang))
+                                            .addComponent(jenisBarang)
+                                            .addComponent(comboKdJenis, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -270,7 +278,7 @@ public class barang extends javax.swing.JPanel {
                                         .addComponent(btnDelete)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnCancel)))))
-                        .addGap(0, 196, Short.MAX_VALUE))
+                        .addGap(0, 191, Short.MAX_VALUE))
                     .addComponent(tbData, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -294,9 +302,9 @@ public class barang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(comboKdJenis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(stok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboKdJenis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -397,12 +405,15 @@ public class barang extends javax.swing.JPanel {
         String id = tbBarang.getValueAt(baris, 0).toString();
         String nb = tbBarang.getValueAt(baris, 1).toString();
         String kd = tbBarang.getValueAt(baris, 2).toString();
-        String hn = tbBarang.getValueAt(baris, 3).toString();
-        String hj = tbBarang.getValueAt(baris, 4).toString();
-        String s = tbBarang.getValueAt(baris, 5).toString();
+        String nj = tbBarang.getValueAt(baris, 3).toString();
+        String hn = tbBarang.getValueAt(baris, 4).toString();
+        String hj = tbBarang.getValueAt(baris, 5).toString();
+        String s = tbBarang.getValueAt(baris, 6).toString();
         kdBarang.setText(id);
         namaBarang.setText(nb);
+        
         comboKdJenis.setSelectedItem(kd);
+        jenisBarang.setText(nj);
         hargaNet.setText(hn);
         hargaJual.setText(hj);
         stok.setText(s);
@@ -436,6 +447,7 @@ public class barang extends javax.swing.JPanel {
         btnDelete.setEnabled(false);
         btnCancel.setEnabled(true);
         btnAddNew.setEnabled(false);
+        jenisBarang.setEnabled(false);
     }//GEN-LAST:event_btnAddNewActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -448,6 +460,18 @@ public class barang extends javax.swing.JPanel {
         btnCancel.setEnabled(false);
         btnAddNew.setEnabled(true);
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void comboKdJenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboKdJenisActionPerformed
+        // TODO add your handling code here:
+        if (comboKdJenis.getSelectedIndex() == 0) {
+            jenisBarang.setText("");
+        } else {
+            List<String[]> namaJenis = jb.Show(comboKdJenis.getSelectedItem().toString());
+            for (String[] item : namaJenis) {
+                jenisBarang.setText(item[1]);
+            }
+        }
+    }//GEN-LAST:event_comboKdJenisActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

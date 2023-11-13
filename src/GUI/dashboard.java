@@ -28,9 +28,9 @@ public class dashboard extends javax.swing.JPanel {
      */
     public dashboard() {
         initComponents();
-        jmlhjnsbrg();
-        jmlhdistributor();
-        jlmhbrg();
+//        jmlhjnsbrg();
+//        jmlhdistributor();
+//        jlmhbrg();
         Timer timer = new Timer(1, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,59 +50,59 @@ public class dashboard extends javax.swing.JPanel {
         showdays.setText(hr+", "+tgl);
     }
     
-    private void jmlhjnsbrg() { 
-        try{
-            
-            String sql = "SELECT COUNT(*) FROM tbljenis";
-            
-            Connection c = koneksi.getKoneksi();
-            Statement s = c.createStatement();
-            ResultSet r = s.executeQuery(sql);
-            
-            if(r.next()){
-                String count =r.getString(1);
-                jmlhjnsbrg.setText(count);
-            }
-        }catch(SQLException e){
-            System.out.println("Terjadi Error"); 
-        }
-    }
+//    private void jmlhjnsbrg() { 
+//        try{
+//            
+//            String sql = "SELECT COUNT(*) FROM tbljenis";
+//            
+//            Connection c = koneksi.getKoneksi();
+//            Statement s = c.createStatement();
+//            ResultSet r = s.executeQuery(sql);
+//            
+//            if(r.next()){
+//                String count =r.getString(1);
+//                jmlhjnsbrg.setText(count);
+//            }
+//        }catch(SQLException e){
+//            System.out.println("Terjadi Error"); 
+//        }
+//    }
     
-    private void jmlhdistributor() {
-        try{
-            
-            String sql = "SELECT COUNT(*) FROM tbldistributor";
-            
-            Connection c = koneksi.getKoneksi();
-            Statement s = c.createStatement();
-            ResultSet r = s.executeQuery(sql);
-            
-            if(r.next()){
-                String count =r.getString(1);
-                jmlhdistributor.setText(count);
-            }
-        }catch(SQLException e){
-            System.out.println("Terjadi Error"); 
-        }
-    }
-    
-    private void jlmhbrg() {
-        try{
-            
-            String sql = "SELECT COUNT(*) FROM tblbarang";
-            
-            Connection c = koneksi.getKoneksi();
-            Statement s = c.createStatement();
-            ResultSet r = s.executeQuery(sql);
-            
-            if(r.next()){
-                String count =r.getString(1);
-                jmlhbrg.setText(count);
-            }
-        }catch(SQLException e){
-            System.out.println("Terjadi Error"); 
-        }
-    }
+//    private void jmlhdistributor() {
+//        try{
+//            
+//            String sql = "SELECT COUNT(*) FROM tbldistributor";
+//            
+//            Connection c = koneksi.getKoneksi();
+//            Statement s = c.createStatement();
+//            ResultSet r = s.executeQuery(sql);
+//            
+//            if(r.next()){
+//                String count =r.getString(1);
+//                jmlhdistributor.setText(count);
+//            }
+//        }catch(SQLException e){
+//            System.out.println("Terjadi Error"); 
+//        }
+//    }
+//    
+//    private void jlmhbrg() {
+//        try{
+//            
+//            String sql = "SELECT COUNT(*) FROM tblbarang";
+//            
+//            Connection c = koneksi.getKoneksi();
+//            Statement s = c.createStatement();
+//            ResultSet r = s.executeQuery(sql);
+//            
+//            if(r.next()){
+//                String count =r.getString(1);
+//                jmlhbrg.setText(count);
+//            }
+//        }catch(SQLException e){
+//            System.out.println("Terjadi Error"); 
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
