@@ -143,9 +143,37 @@ public class petugas extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Petugas");
 
+        txtid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtidKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtidKeyTyped(evt);
+            }
+        });
+
+        txtnama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnamaActionPerformed(evt);
+            }
+        });
+        txtnama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtnamaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnamaKeyTyped(evt);
+            }
+        });
+
         txttelpon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txttelponActionPerformed(evt);
+            }
+        });
+        txttelpon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txttelponKeyPressed(evt);
             }
         });
 
@@ -555,6 +583,48 @@ public class petugas extends javax.swing.JPanel {
         btnadd.setEnabled(false);
     
     }//GEN-LAST:event_tbpetugasMouseClicked
+
+    private void txtidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtidKeyTyped
+
+    private void txtidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidKeyPressed
+        // TODO add your handling code here:
+        char a = evt.getKeyChar();
+        if(Character.isLetter(a)) {
+            txtid.setEditable(false);
+            JOptionPane.showConfirmDialog(null, "Tidak Bisa Memilih Huruf",
+                        "Nomor Id Petugas", JOptionPane.DEFAULT_OPTION);
+        }else {
+            txtid.setEditable(true);
+        }
+    }//GEN-LAST:event_txtidKeyPressed
+
+    private void txtnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtnamaActionPerformed
+
+    private void txttelponKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelponKeyPressed
+        // TODO add your handling code here:
+        char a = evt.getKeyChar();
+        if(Character.isLetter(a)) {
+            txttelpon.setEditable(false);
+            JOptionPane.showConfirmDialog(null, "Tidak Bisa Memilih Huruf",
+                        "Nomor Telepon", JOptionPane.DEFAULT_OPTION);
+        }else {
+            txttelpon.setEditable(true);
+        }
+    }//GEN-LAST:event_txttelponKeyPressed
+
+    private void txtnamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnamaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnamaKeyPressed
+
+    private void txtnamaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnamaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnamaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
