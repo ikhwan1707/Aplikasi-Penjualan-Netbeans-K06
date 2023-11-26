@@ -25,7 +25,7 @@ public class barang extends javax.swing.JPanel {
      */
     public barang() {
         initComponents();
-        loadData(b.Index());
+        loadData(b.index());
         loadDataCombo();
         kosong();
         SetEnabledFalse();
@@ -58,13 +58,13 @@ public class barang extends javax.swing.JPanel {
                 item[3],
                 item[4],
                 item[5],
-                item[6]
+                item[6],
             });
         }
     }
      
     private void loadDataCombo() {
-        for (String[] item : jb.Index()) {
+        for (String[] item : jb.index()) {
             comboKdJenis.addItem(item[0]);
         }
     }
@@ -354,8 +354,8 @@ public class barang extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        b.Store(namaBarang.getText(), comboKdJenis.getSelectedItem().toString(), hargaNet.getText(), hargaJual.getText(), stok.getText());
-        loadData(b.Index());
+        b.store(namaBarang.getText(), comboKdJenis.getSelectedItem().toString(), hargaNet.getText(), hargaJual.getText(), stok.getText());
+        loadData(b.index());
         
         SetEnabledFalse();
         btnSave.setEnabled(false);
@@ -370,7 +370,7 @@ public class barang extends javax.swing.JPanel {
         if ("".equals(kdBarang.getText()) || "".equals(namaBarang.getText()) || "".equals(comboKdJenis.getSelectedItem().toString()) || "".equals(hargaNet.getText()) || "".equals(hargaJual.getText()) || "".equals(stok.getText()) ) {
 
         } else {
-            b.Update(kdBarang.getText(), namaBarang.getText(), comboKdJenis.getSelectedItem().toString(),hargaNet.getText(), hargaJual.getText(), stok.getText());
+            b.update(kdBarang.getText(), namaBarang.getText(), comboKdJenis.getSelectedItem().toString(),hargaNet.getText(), hargaJual.getText(), stok.getText());
         }
 
         kdBarang.setText("");
@@ -380,7 +380,7 @@ public class barang extends javax.swing.JPanel {
         hargaJual.setText("");
         stok.setText("");
         
-        loadData(b.Index());
+        loadData(b.index());
         
         SetEnabledFalse();
         btnSave.setEnabled(false);
@@ -428,8 +428,8 @@ public class barang extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        b.Delete(kdBarang.getText());
-        loadData(b.Index());
+        b.delete(kdBarang.getText());
+        loadData(b.index());
         
         SetEnabledFalse();
         btnSave.setEnabled(false);
@@ -466,10 +466,8 @@ public class barang extends javax.swing.JPanel {
         if (comboKdJenis.getSelectedIndex() == 0) {
             jenisBarang.setText("");
         } else {
-            List<String[]> namaJenis = jb.Show(comboKdJenis.getSelectedItem().toString());
-            for (String[] item : namaJenis) {
-                jenisBarang.setText(item[1]);
-            }
+            String[] item = jb.show(comboKdJenis.getSelectedItem().toString());
+             jenisBarang.setText(item[1]);
         }
     }//GEN-LAST:event_comboKdJenisActionPerformed
 

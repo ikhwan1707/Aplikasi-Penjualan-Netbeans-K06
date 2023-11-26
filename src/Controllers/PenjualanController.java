@@ -19,106 +19,319 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import koneksi.koneksi;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PenjualanController {
 
     private final Connection cn = koneksi.getKoneksi();
 
-    public String Tanggal() {
+    public String tanggal() {
         SimpleDateFormat formatTanggal = new SimpleDateFormat("yyyy-MM-dd");
         Date tanggalSekarang = new Date();
         String tanggal = formatTanggal.format(tanggalSekarang);
         return tanggal;
     }
-    
-    public List<String[]> mencariNoFaktur(String noFaktur) {
-        List<String[]> dataPenjualan = new ArrayList<>();
+
+    public String autoIncrement() {
+
+        String noFaktur = null;
+        String check = null;
+
         try {
-            String query = "SELECT a.NoFaktur, a.TglPenjualan, a.IDPetugas, b.NamaPetugas "+
-                           "FROM tblpenjualan AS a "+
-                           "JOIN tblpetugas AS b ON b.IDPetugas = a.IDPetugas "+
-                           "WHERE a.NoFaktur = ?";
-            
+            String query = "SELECT COUNT(NoFaktur) FROM  tblpenjualan";
+            try (PreparedStatement ps = cn.prepareStatement(query)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        int count = rs.getInt(1) + 1;
+                        String kodeDepan = "NF";
+                        noFaktur = String.format("%s%03d", kodeDepan, count);
+                    }
+
+                    String query2 = "SELECT NoFaktur FROM tblpenjualan WHERE NoFaktur = ?";
+                    try (PreparedStatement p = cn.prepareStatement(query2)) {
+                        p.setString(1, noFaktur);
+                        try (ResultSet r = p.executeQuery()) {
+                            if (r.next()) {
+                                check = r.getString("NoFaktur");
+                            }
+                        }
+                    }
+
+                    if (noFaktur.equals(check)) {
+                        Pattern pattern = Pattern.compile("([a-zA-Z]+)([0-9]+)");
+                        Matcher dataKode = pattern.matcher(noFaktur);
+                        if (dataKode.matches()) {
+                            String huruf = dataKode.group(1);
+                            int angka = Integer.parseInt(dataKode.group(2)) + 1;
+                            noFaktur = String.format("%s%03d", huruf, angka);
+                        }
+                    }
+
+                    rs.close();
+                }
+                ps.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("\n{\n\tCode\t: 500\n \tMessage\t: BarangController tidak terhubung dengan database\n \tMessage\t: " + e.getMessage() + " \n}\n");
+        }
+
+        return noFaktur;
+    }
+
+    public Boolean mencariNoFaktur(String noFaktur) {
+        Boolean dataPenjualan = false;
+        String data = null;
+        try {
+            String query = "SELECT a.NoFaktur, a.TglPenjualan, a.IDPetugas, b.NamaPetugas "
+                    + "FROM tblpenjualan AS a "
+                    + "JOIN tblpetugas AS b ON b.IDPetugas = a.IDPetugas "
+                    + "WHERE a.NoFaktur = ?";
+
             try (PreparedStatement ps = cn.prepareStatement(query)) {
                 ps.setString(1, noFaktur);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        String NoFaktur = rs.getString("NoFaktur");
-                        String TglPenjualan = rs.getString("TglPenjualan");
-                        String IdPetugas = rs.getString("IDPetugas");
-                        String NamaPetugas = rs.getString("NamaPetugas");
-                        String[] data = {NoFaktur, TglPenjualan, IdPetugas, NamaPetugas};
-                        dataPenjualan.add(data);
+                        data = rs.getString("NoFaktur");
                     }
                     rs.close();
                 }
                 ps.close();
             }
-            
+
         } catch (SQLException e) {
             System.out.print(e.getMessage());
         }
+
+        if (data != null) {
+            dataPenjualan = true;
+        }
+
         return dataPenjualan;
     }
-    
-    public List<String[]> IndexPenjualanBarang() {
+
+    public List<String[]> index() {
         List<String[]> dataPenjualan = new ArrayList<>();
-        StringBuilder result = new StringBuilder();
-        
-//      Eksekusi kode
+
+        String queryPenjualan = "SELECT a.*, b.NamaPetugas FROM tblpenjualan AS a "
+                + "JOIN tblpetugas AS b ON a.IDPetugas = b.IDPetugas";
+        String queryDetail = "SELECT a.*, b.NamaBarang FROM tbldetailpenjualan AS a "
+                + "JOIN tblbarang AS b ON b.KodeBarang = a.KodeBarang "
+                + "WHERE a.NoFaktur = ? ";
+
         try {
-            List<String> detail = new ArrayList<>();
-            String query = "SELECT * FROM tblpetugas";
-            String queryDetail = "SELECT a.NoFaktur AS noFaktur, b.NamaBarang AS namaBarang FROM tbldetailbarang AS a JOIN tblbarang AS b ON b.KodeBarang = a.KodeBarang WHERE a.NoFaktur = ?";
-            try (PreparedStatement ps = cn.prepareStatement(query)) {
-                try (ResultSet rs = ps.executeQuery()) {
-                    while (rs.next()) {
-                        String noFaktur = rs.getString("NoFaktur");
-                        
-//                      Mengabil data barang pada tbl detail penjualan
-                        try (PreparedStatement psd = cn.prepareStatement(queryDetail)) {
-                            psd.setString(1, noFaktur);
-                            try (ResultSet rsd = ps.executeQuery()) {
-                                if (rsd.next()) {
-                                    String namaBarang = rs.getString("namaBarang");
-                                    detail.add(namaBarang);
+            try (PreparedStatement p = cn.prepareStatement(queryPenjualan)) {
+                try (ResultSet r = p.executeQuery()) {
+                    while (r.next()) {
+                        String noFaktur = r.getString("NoFaktur");
+                        try (PreparedStatement ps = cn.prepareStatement(queryDetail)) {
+                            ps.setString(1, noFaktur);
+                            try (ResultSet rs = ps.executeQuery()) {
+
+                                List<String> detail = new ArrayList<>();
+                                StringBuilder namaBarang = new StringBuilder();
+                                while (rs.next()) {
+                                    String nb = rs.getString("NamaBarang");
+                                    detail.add(nb);
                                 }
+
+                                for (String items : detail) {
+                                    namaBarang.append(items).append(", ");
+                                }
+
+                                if (namaBarang.length() > 0) {
+                                    namaBarang.setLength(namaBarang.length() - 2);
+                                }
+
+                                String tanggal = r.getString("TglPenjualan");
+                                String namaPetugas = r.getString("NamaPetugas");
+                                String bayar = r.getString("Bayar");
+                                String sisa = r.getString("Sisa");
+                                String total = r.getString("Total");
+                                String[] data = {noFaktur, namaBarang.toString(), tanggal, namaPetugas, bayar, sisa, total};
+
+                                dataPenjualan.add(data);
+
+                                rs.close();
+                            }
+                            ps.close();
+                        }
+                    }
+                    r.close();
+                }
+                p.close();
+            }
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+
+        return dataPenjualan;
+    }
+
+    public void store(List<String[]> data, String noFaktur, String tglPenjualan, String idPetugas, String bayar, String sisa, String total) {
+        try {
+            String query = "INSERT INTO tblpenjualan VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement p = cn.prepareStatement(query)) {
+                p.setString(1, noFaktur);
+                p.setString(2, tglPenjualan);
+                p.setString(3, idPetugas);
+                p.setString(4, bayar);
+                p.setString(5, sisa);
+                p.setString(6, total);
+                p.executeUpdate();
+                p.close();
+            }
+
+            String checkStok = "SELECT Stok FROM tblbarang WHERE KodeBarang = ?";
+            String queryStok = "UPDATE tblbarang SET STOK = ? WHERE KodeBarang = ?";
+            String queryHistory = "INSERT INTO tbldetailpenjualan VALUES (?, ?, ?, ?)";
+            for (String[] v : data) {
+                try (PreparedStatement ps = cn.prepareStatement(queryHistory)) {
+                    ps.setString(1, noFaktur);
+                    ps.setString(2, v[0]);
+                    ps.setString(3, v[2]);
+                    ps.setString(4, v[3]);
+                    ps.executeUpdate();
+                    ps.close();
+                }
+
+                try (PreparedStatement psc = cn.prepareStatement(checkStok)) {
+                    psc.setString(1, v[0]);
+                    try (ResultSet rsc = psc.executeQuery()) {
+                        if (rsc.next()) {
+                            int updateStok = Integer.parseInt(rsc.getString("Stok")) - Integer.parseInt(v[2]);
+                            try (PreparedStatement pss = cn.prepareStatement(queryStok)) {
+                                pss.setString(1, Integer.toString(updateStok));
+                                pss.setString(2, v[0]);
+
+                                pss.executeUpdate();
+                                pss.close();
                             }
                         }
-                        
-//                      Mengubah array menjadi String gabungan
-                        for (String dataNamaBarang : detail) {
-                            result.append(dataNamaBarang).append(", ");
-                        }
-                        
-//                      Menghapus extra nya
-                        if (result.length() > 0) {
-                            result.setLength(result.length() - 2);
-                        }
-                        
-                        String namaBarang = result.toString();
-                        String tglPenjualan = rs.getString("TglPenjualan");
-                        String idPetugas = rs.getString("IDPetugas");
-                        String bayar = rs.getString("Bayar");
-                        String sisa = rs.getString("Sisa");
-                        String total = rs.getString("Total");
-                        String[] data = {noFaktur, namaBarang, tglPenjualan, idPetugas, bayar, sisa, total};
-                        dataPenjualan.add(data);
+                        rsc.close();
                     }
-                    rs.close();
+                    psc.close();
                 }
+            }
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    public void delete(String noFaktur) {
+        try {
+            String query = "DELETE FROM tblpenjualan WHERE NoFaktur = ?";
+            String query2 = "DELETE FROM tbldetailpenjualan WHERE NoFaktur = ?";
+            try (PreparedStatement p = cn.prepareStatement(query)) {
+                p.setString(1, noFaktur);
+                p.executeUpdate();
+                p.close();
+            }
+
+            try (PreparedStatement ps = cn.prepareStatement(query2)) {
+                ps.setString(1, noFaktur);
+                ps.executeUpdate();
                 ps.close();
             }
         } catch (SQLException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    public List<String[]> show(String noFaktur) {
+        List<String[]> dataPenjualan = new ArrayList<>();
+
+        String queryPenjualan = "SELECT a.*, b.NamaPetugas FROM tblpenjualan AS a "
+                + "JOIN tblpetugas AS b ON a.IDPetugas = b.IDPetugas WHERE a.NoFaktur = ?";
+        String queryDetail = "SELECT a.*, b.NamaBarang FROM tbldetailpenjualan AS a "
+                + "JOIN tblbarang AS b ON b.KodeBarang = a.KodeBarang "
+                + "WHERE a.NoFaktur = ? ";
+
+        try {
+            try (PreparedStatement p = cn.prepareStatement(queryPenjualan)) {
+                p.setString(1, noFaktur);
+                try (ResultSet r = p.executeQuery()) {
+                    while (r.next()) {
+                        try (PreparedStatement ps = cn.prepareStatement(queryDetail)) {
+                            ps.setString(1, noFaktur);
+                            try (ResultSet rs = ps.executeQuery()) {
+
+                                List<String> detail = new ArrayList<>();
+                                StringBuilder namaBarang = new StringBuilder();
+                                while (rs.next()) {
+                                    String nb = rs.getString("NamaBarang");
+                                    detail.add(nb);
+                                }
+
+                                for (String items : detail) {
+                                    namaBarang.append(items).append(", ");
+                                }
+
+                                if (namaBarang.length() > 0) {
+                                    namaBarang.setLength(namaBarang.length() - 2);
+                                }
+
+                                String tanggal = r.getString("TglPenjualan");
+                                String namaPetugas = r.getString("NamaPetugas");
+                                String bayar = r.getString("Bayar");
+                                String sisa = r.getString("Sisa");
+                                String total = r.getString("Total");
+                                String[] data = {noFaktur, namaBarang.toString(), tanggal, namaPetugas, bayar, sisa, total};
+
+                                dataPenjualan.add(data);
+
+                                rs.close();
+                            }
+                            ps.close();
+                        }
+                    }
+                    r.close();
+                }
+                p.close();
+            }
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+
         return dataPenjualan;
     }
 
-    public void Store() {
-        
-    }
+    public List<String[]> validasi(List<String[]> data) {
+        List<String[]> barang = new ArrayList<>();
+        StringBuilder placeholders = new StringBuilder();
 
-    public void Delete() {
+        for (String[] items : data) {
+            placeholders.append("?, ");
+        }
+
+        if (placeholders.length() > 0) {
+            placeholders.setLength(placeholders.length() - 2);
+        }
+
+        String query = "SELECT * FROM tblbarang WHERE KodeBarang NOT IN (" + placeholders + ")";
+
+        try {
+            try (PreparedStatement p = cn.prepareStatement(query)) {
+                int index = 1;
+                for (String[] items : data) {
+                    String result = (Arrays.toString(items)).replaceAll("\\[([^\\]]*)\\]", "$1");
+                    p.setString(index++, result);
+                }
+
+                try (ResultSet r = p.executeQuery()) {
+                    while (r.next()) {
+                        String[] dataDetail = {r.getString("KodeBarang")};
+                        barang.add(dataDetail);
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return barang;
     }
 }
