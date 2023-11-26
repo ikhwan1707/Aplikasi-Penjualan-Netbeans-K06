@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Connectin Database
-import Connection.db;
+import koneksi.koneksi;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DistributorController {
 
-    private final Connection cn = db.connect();
+    private final Connection cn = koneksi.getKoneksi();
 
 //  Sudah Optimal
     public String autoIncrement() {
